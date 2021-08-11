@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+</head>
+<body>
+
+<div>
+    <h3>Панель администратора:</h3>
+    <h3>Сведения о пользователях:</h3>
+    <hr>
+</div>
+
+<div>
+<table th:cellpadding="3" th:cellspacing="1" >
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Roles</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user: ${users}">
+        <td th:text="${user.username}"/>
+        <td th:text="${user.password}"/>
+        <td>
+            <th:block th:each="rl: ${user.getRoles()}">
+                <label th:text="${rl.role}"/> </br>
+            </th:block>
+        </td>
+        <td><a th:href="@{/showUpdateUserForm/{id}(id=${user.getId()})}">Update</a> </td>
+        <td><a th:href="@{/deleteUser/{id}(id=${user.getId()})}">Delete</a> </td>
+    </tr>
+    </tbody>
+</table>
+    <p><a th:href="@{showNewUserForm}">Add User</a></p>
+    <hr>
+</div>
+
+<div>
+    <a th:href="@{login}">Выйти из аккаунта</a>
+</div>
+
+</body>
+</html>

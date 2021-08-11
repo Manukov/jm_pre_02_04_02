@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add User</title>
+</head>
+<body>
+<div>
+    <h3>Панель пользователя:</h3>
+    <h3>Сведения о пользователе:</h3>
+    <hr>
+</div>
+
+<div>
+<form action="#" th:object="${user}">
+    Username: <input type="text" th:field="*{username}"/> <br><br>
+    Password: <input type="text" th:field="*{password}"/><br><br>
+</form>
+    <hr>
+</div>
+
+<div>
+    <a th:href="@{login}">Выйти из аккаунта</a>
+</div>
+
+</body>
+</html>
