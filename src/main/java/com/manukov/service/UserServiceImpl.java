@@ -2,12 +2,11 @@ package com.manukov.service;
 
 import com.manukov.dao.RoleDao;
 import com.manukov.dao.UserDao;
+import com.manukov.entity.Role;
 import com.manukov.entity.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,12 +17,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     private final UserDao userDao;
     private final RoleDao roleDao;
+    private final RoleService roleService;
 
-    public UserServiceImpl(UserDao userDao, RoleDao roleDao) {
+    public UserServiceImpl(UserDao userDao, RoleDao roleDao, RoleService roleService) {
         this.userDao = userDao;
         this.roleDao = roleDao;
+        this.roleService = roleService;
     }
-
 
     @Transactional
     @Override
@@ -44,8 +44,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Transactional
     @Override
-    public boolean addUser(User user, String[] roles) {
-        return userDao.addUser(user, roles);
+    public boolean addUser(User user, String[] rolesId) {
+        user.setRoles(getRolesByArrayId(rolesId));
+        return userDao.addUser(user);
     }
 
     @Transactional
@@ -56,8 +57,14 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Transactional
     @Override
-    public boolean updateUser(User user, String[] roles) {
-        return userDao.updateUser(user, roles);
+    public boolean updateUser(User user, String[] rolesId) {
+
+        User newUser = userDao.findById(user.getId());
+        newUser.setUsername(user.getUsername());
+        newUser.setPassword(user.getPassword());
+        newUser.setRoles(getRolesByArrayId(rolesId));
+
+        return userDao.updateUser(newUser);
     }
 
     @Transactional
@@ -65,4 +72,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     public boolean deleteUser(long id) {
         return userDao.deleteUser(id);
     }
+
+    private Set<Role> getRolesByArrayId(String[] rolesId) {
+        Set<Role> roles = new HashSet<>();
+        for(String id: rolesId){
+            roles.add(roleService.getRoleById(Long.parseLong(id)));
+        }
+        return roles;
+    }
+
 }

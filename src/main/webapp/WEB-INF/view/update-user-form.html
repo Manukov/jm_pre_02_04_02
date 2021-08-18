@@ -13,7 +13,7 @@
 </div>
 
 <div>
-    <form action="#" th:action="@{/updateUser}" th:object="${updateUser}" method="post">
+    <form action="#" th:action="@{/admin/updateUser}" th:object="${updateUser}" method="post">
         <input type="hidden" th:field="*{id}">
         Name <input type="text" th:field="*{username}" placeholder="Write Name Here"/> <br><br>
         Email <input type="text" th:field="*{password}" placeholder="Write Email Here"/><br><br>
@@ -26,6 +26,7 @@
         </ul>
 
         <input type="submit" value="Update" />
+    </form>
 </div>
 
 </body>

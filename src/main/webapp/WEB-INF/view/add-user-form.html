@@ -13,7 +13,7 @@
 </div>
 
 <div>
-    <form action="#" th:action="@{/addUser}" th:object="${newUser}" method="post">
+    <form action="#" th:action="@{/admin/addUser}" th:object="${newUser}" method="post">
         Name <input type="text" th:field="*{username}" placeholder="Write Name Here"/> <br><br>
         Email <input type="text" th:field="*{password}" placeholder="Write Email Here"/><br><br>
 

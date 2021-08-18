@@ -25,7 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-
         return NoOpPasswordEncoder.getInstance();
         //return new BCryptPasswordEncoder();
     }
@@ -36,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
 
                 .authorizeRequests()
-                    .antMatchers("/")       //страница "/" доступна всем и не требует аутенитфикации
+                    .antMatchers("/")
                     .permitAll()
                     .and()
 
@@ -46,24 +45,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .anyRequest().authenticated()
                     .and()
 
-                .formLogin()                                //используем форму аутентификации Spring
-                    //.loginPage("/login")                    //вместо формы Spring подставляем URL своей страницы
-                    //.permitAll()                            //доступна всем
-                    //.usernameParameter("root")
-                    //.passwordParameter("root")
-                    .successHandler(successUserHandler)     //обработка успешного входа
+                .formLogin()
+                    .successHandler(successUserHandler)
                     .and()
 
                 .logout()
-                    //.logoutUrl("/logout")
-                    .permitAll();                           //разлогиниться могут все
-
+                    .permitAll();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(detailsService)         //передаем параметром бин UserDetailServiceImpl
+                .userDetailsService(detailsService)
                 .passwordEncoder(passwordEncoder());
     }
 
@@ -78,5 +71,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .password(passwordEncoder().encode("admin"))
 //                .roles("ADMIN");                //.roles("USER", "ADMIN");
 //    }
-
 }

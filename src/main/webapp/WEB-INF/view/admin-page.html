@@ -32,12 +32,12 @@
                 <label th:text="${rl.role}"/> </br>
             </th:block>
         </td>
-        <td><a th:href="@{/showUpdateUserForm/{id}(id=${user.getId()})}">Update</a> </td>
-        <td><a th:href="@{/deleteUser/{id}(id=${user.getId()})}">Delete</a> </td>
+        <td><a th:href="@{/admin/showUpdateUserForm/{id}(id=${user.getId()})}">Update</a> </td>
+        <td><a th:href="@{/admin/deleteUser/{id}(id=${user.getId()})}">Delete</a> </td>
     </tr>
     </tbody>
 </table>
-    <p><a th:href="@{showNewUserForm}">Add User</a></p>
+    <p><a th:href="@{/admin/showNewUserForm}">Add User</a></p>
     <hr>
 </div>
 

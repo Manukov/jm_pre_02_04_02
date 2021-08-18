@@ -3,7 +3,6 @@ package com.manukov.entity;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity

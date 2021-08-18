@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface UserService {
     List<User> getUsers();
-    boolean addUser(User user, String[] roles);
+    boolean addUser(User user, String[] rolesId);
     User findById(long id);
-    boolean updateUser(User user, String[] roles);
+    boolean updateUser(User user, String[] rolesId);
     boolean deleteUser(long id);
 }
